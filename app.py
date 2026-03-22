@@ -73,11 +73,14 @@ def create_badge(data):
     }
     try:
         resp = requests.post(f"{FIREBASE_URL}/badges", json=badge_data)
-        resp.raise_for_status()
-        return resp.json()
+        print(f"Firestore response status: {resp.status_code}")
+        print(f"Firestore response: {resp.text}")
+        if resp.status_code in [200, 200]:
+            return resp.json()
+        return {'error': resp.text, 'status': resp.status_code}
     except Exception as e:
         print(f"Error creating badge: {e}")
-        return None
+        return {'error': str(e)}
 
 def delete_badge(badge_id):
     try:
@@ -104,9 +107,9 @@ def create_badge_api():
         return jsonify({'error': 'First name and last name are required'}), 400
     
     result = create_badge(data)
-    if result:
+    if result and 'error' not in result:
         return jsonify({'message': 'Badge created', 'data': result}), 201
-    return jsonify({'error': 'Failed to create badge'}), 500
+    return jsonify({'error': result.get('error', 'Failed to create badge')}), 500
 
 @app.route('/api/badges/<badge_id>', methods=['DELETE'])
 def delete_badge_api(badge_id):
