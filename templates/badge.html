@@ -426,7 +426,6 @@
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
             <h2 style="margin-bottom:0;">🏕️ البطاقات المُنشأة</h2>
             <button class="main-btn no-print" onclick="printHtml()" style="width:auto;padding:10px 20px;font-size:14px;">🖨️ طباعة HTML</button>
-            <button class="main-btn no-print" onclick="exportPdf()" style="width:auto;padding:10px 20px;font-size:14px;">📄 تصدير PDF</button>
         </div>
         <div id="badgesList" class="badges-list print-area">
             <div class="loading">جارٍ تحميل البطاقات...</div>
@@ -632,10 +631,6 @@
 
     // Set logo on preview
     document.getElementById('previewLogo').src = LOGO_B64;
-
-    window.exportPdf = function() {
-        window.open('/api/export/pdf', '_blank');
-    };
 
     window.printHtml = function() {
         window.open('/api/export/print', '_blank');
