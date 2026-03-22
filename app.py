@@ -60,26 +60,32 @@ def get_badges():
         return []
 
 def create_badge(data):
-    badge_data = {
-        'fields': {
-            'firstName': {'stringValue': data.get('firstName', '')},
-            'lastName': {'stringValue': data.get('lastName', '')},
-            'mission': {'stringValue': data.get('mission', '')},
-            'photoUrl': {'stringValue': data.get('photoUrl', '')},
-            'bgImage': {'stringValue': data.get('bgImage', '')},
-            'backgroundColor': {'stringValue': data.get('backgroundColor', 'linear-gradient(135deg,#2d4a1e,#556b2f)')},
-            'createdAt': {'integerValue': int(__import__('time').time() * 1000)}
-        }
-    }
+    fields = {}
+    
+    fn = data.get('firstName', '')
+    ln = data.get('lastName', '')
+    ms = data.get('mission', '') or ' '
+    pu = data.get('photoUrl') or ' '
+    bi = data.get('bgImage') or ' '
+    bc = data.get('backgroundColor', 'linear-gradient(135deg,#2d4a1e,#556b2f)')
+    ts = int(__import__('time').time() * 1000)
+    
+    fields['firstName'] = {'stringValue': fn}
+    fields['lastName'] = {'stringValue': ln}
+    fields['mission'] = {'stringValue': ms}
+    fields['photoUrl'] = {'stringValue': pu}
+    fields['bgImage'] = {'stringValue': bi}
+    fields['backgroundColor'] = {'stringValue': bc}
+    fields['createdAt'] = {'integerValue': ts}
+    
+    badge_data = {'fields': fields}
+    
     try:
         resp = requests.post(f"{FIREBASE_URL}/badges", json=badge_data)
-        print(f"Firestore response status: {resp.status_code}")
-        print(f"Firestore response: {resp.text}")
-        if resp.status_code in [200, 200]:
+        if resp.status_code == 200:
             return resp.json()
         return {'error': resp.text, 'status': resp.status_code}
     except Exception as e:
-        print(f"Error creating badge: {e}")
         return {'error': str(e)}
 
 def delete_badge(badge_id):
