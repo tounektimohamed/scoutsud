@@ -138,7 +138,6 @@ def export_print():
                 <div class="badge-bg-overlay"></div>
                 <div class="badge-event">الملتقى الوطني للاستكشاف والمغامرة</div>
                 <div class="badge-content">
-                    <div class="badge-scout-icon">⚜️</div>
                     <img class="badge-photo" src="{photo}" alt="">
                     <div class="badge-name">{badge.get('firstName', '')} {badge.get('lastName', '')}</div>
                 </div>
