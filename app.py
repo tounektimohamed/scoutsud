@@ -138,7 +138,10 @@ def export_print():
                 <div class="badge-bg-overlay"></div>
                 <div class="badge-event">الملتقى الوطني للاستكشاف والمغامرة</div>
                 <div class="badge-content">
-                    <img class="badge-photo" src="{photo}" alt="">
+                    <div class="photo-container">
+                        <img class="badge-photo" src="{photo}" alt="">
+                        <img class="badge-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Star_and_Crescent.svg/120px-Star_and_Crescent.svg.png" alt="logo">
+                    </div>
                     <div class="badge-name">{badge.get('firstName', '')} {badge.get('lastName', '')}</div>
                 </div>
                 <div class="badge-mission-wrap">
@@ -172,10 +175,11 @@ body {{ font-family: 'Tajawal', sans-serif; background: white; padding: 20px; }}
   padding: 9px 12px; text-align: center; line-height: 1.5; }}
 .badge-content {{ position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column;
   align-items: center; justify-content: center; padding: 70px 16px 70px; }}
-.badge-scout-icon {{ font-size: 50px; margin-bottom: 8px; }}
 .badge-photo {{ width: 110px; height: 110px; border-radius: 50%; border: 4px solid #d4a84b;
   box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 6px 16px rgba(0,0,0,0.45);
   object-fit: cover; margin-bottom: 10px; }}
+.photo-container {{ position: relative; }}
+.badge-logo {{ position: absolute; bottom: 0; right: 0; width: 40px; height: 40px; border-radius: 50%; border: 2px solid #d4a84b; object-fit: cover; background: white; }}
 .badge-name {{ font-family: 'Tajawal', sans-serif; font-size: 18px; font-weight: 900;
   color: #fff; text-shadow: 1px 1px 8px rgba(0,0,0,0.8); text-align: center; }}
 .badge-mission-wrap {{ position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
